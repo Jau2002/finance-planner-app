@@ -14,7 +14,7 @@ whiteListController.post(
 		}
 		const user: User = await postUser({ name, email })
 
-		return res.status(204).json({ data: user, message: 'User is created' })
+		return res.status(200).json({ data: user, message: 'User is created' })
 	}
 )
 
@@ -23,7 +23,7 @@ whiteListController.get(
 	async (_: Request, res: Response): Promise<Response> => {
 		const user: User[] = await getUsers()
 
-		return res.status(204).json({ data: user, message: 'all user' })
+		return res.status(200).json({ data: user, message: 'all user' })
 	}
 )
 
