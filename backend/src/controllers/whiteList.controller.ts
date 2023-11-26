@@ -8,11 +8,11 @@ const whiteListController: Router = Router()
 whiteListController.post(
 	'/',
 	async (req: Request, res: Response): Promise<Response> => {
-		const { nombre, email } = req.body
-		if (!nombre || !email) {
+		const { name, email } = req.body
+		if (!name || !email) {
 			throw new NotFound('No jodas que MECO')
 		}
-		const user: User = await postUser({ nombre, email })
+		const user: User = await postUser({ name, email })
 
 		return res.status(204).json({ data: user, message: 'User is created' })
 	}

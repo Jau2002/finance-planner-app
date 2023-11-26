@@ -4,18 +4,21 @@ import prisma from './middlewares/client'
 
 dotenv.config({ path: '.env' })
 
-const main = async (): Promise<void> => {
-	app.listen(3001, 'localhost', function (this: any): void {
-		console.log(`http://localhost:${this.address().port}`)
-	})
-}
+const PORT: number = parseInt(process.env.PORT || '3001', 10) ?? 3001
 
-main()
-	.then(async (): Promise<void> => {
-		await prisma.$disconnect()
-	})
-	.catch(async (e: Error): Promise<void> => {
-		console.error(e)
-		await prisma.$disconnect()
+const main = async (): Promise<void> => {
+	try {
+		await prisma.$connect()
+		console.log('Connected to the database')
+
+		app.listen(PORT, 'localhost', function (this: any): void {
+			console.log(
+				`Server is running at http://localhost:${this.address().port}`
+			)
+		})
+	} catch (error) {
+		console.error('Error connecting to the database:', error)
 		process.exit(1)
-	})
+	}
+}
+main()

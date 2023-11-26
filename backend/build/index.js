@@ -34,22 +34,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const app_1 = __importDefault(require("./middlewares/app"));
 const client_1 = __importDefault(require("./middlewares/client"));
 dotenv.config({ path: '.env' });
+const PORT = (_a = parseInt(process.env.PORT || '3001', 10)) !== null && _a !== void 0 ? _a : 3001;
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
-    app_1.default.listen(3001, 'localhost', function () {
-        console.log(`http://localhost:${this.address().port}`);
-    });
+    try {
+        yield client_1.default.$connect();
+        console.log('Connected to the database');
+        app_1.default.listen(PORT, 'localhost', function () {
+            console.log(`Server is running at http://localhost:${this.address().port}`);
+        });
+    }
+    catch (error) {
+        console.error('Error connecting to the database:', error);
+        process.exit(1);
+    }
 });
-main()
-    .then(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield client_1.default.$disconnect();
-}))
-    .catch((e) => __awaiter(void 0, void 0, void 0, function* () {
-    console.error(e);
-    yield client_1.default.$disconnect();
-    process.exit(1);
-}));
+main();

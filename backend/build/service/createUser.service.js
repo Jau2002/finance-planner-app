@@ -14,11 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUsers = exports.postUser = void 0;
 const client_1 = __importDefault(require("../middlewares/client"));
-function postUser({ nombre, email }) {
+function postUser({ name, email }) {
     return __awaiter(this, void 0, void 0, function* () {
-        const createProduct = yield client_1.default.usuarios.create({
+        const createProduct = yield client_1.default.user.create({
             data: {
-                nombre,
+                name,
                 email,
             },
         });
@@ -28,7 +28,7 @@ function postUser({ nombre, email }) {
 exports.postUser = postUser;
 function getUsers() {
     return __awaiter(this, void 0, void 0, function* () {
-        const searchAllUsers = yield client_1.default.usuarios.findMany({
+        const searchAllUsers = yield client_1.default.user.findMany({
             orderBy: { id: 'desc' },
         });
         return searchAllUsers;

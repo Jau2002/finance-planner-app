@@ -1,23 +1,23 @@
-import { Usuarios } from '@prisma/client'
+import { User } from '@prisma/client'
 import prisma from '../middlewares/client'
 
-interface User {
-	nombre: string
+interface UserType {
+	name: string
 	email: string
 }
 
-export async function postUser({ nombre, email }: User): Promise<Usuarios> {
-	const createProduct: Usuarios = await prisma.usuarios.create({
+export async function postUser({ name, email }: UserType): Promise<User> {
+	const createProduct: User = await prisma.user.create({
 		data: {
-			nombre,
+			name,
 			email,
 		},
 	})
 	return createProduct
 }
 
-export async function getUsers(): Promise<Usuarios[]> {
-	const searchAllUsers: Usuarios[] = await prisma.usuarios.findMany({
+export async function getUsers(): Promise<User[]> {
+	const searchAllUsers: User[] = await prisma.user.findMany({
 		orderBy: { id: 'desc' },
 	})
 	return searchAllUsers

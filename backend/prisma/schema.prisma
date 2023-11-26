@@ -3,13 +3,13 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model Usuarios {
+model User {
   id         Int      @id @default(autoincrement())
   email      String   @unique
-  nombre     String
+  name       String
   createDate DateTime @default(now())
 }

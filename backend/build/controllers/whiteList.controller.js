@@ -17,11 +17,11 @@ const createUser_service_1 = require("../service/createUser.service");
 const NotFound_1 = __importDefault(require("../utils/NotFound"));
 const whiteListController = (0, express_1.Router)();
 whiteListController.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { nombre, email } = req.body;
-    if (!nombre || !email) {
+    const { name, email } = req.body;
+    if (!name || !email) {
         throw new NotFound_1.default('No jodas que MECO');
     }
-    const user = yield (0, createUser_service_1.postUser)({ nombre, email });
+    const user = yield (0, createUser_service_1.postUser)({ name, email });
     return res.status(204).json({ data: user, message: 'User is created' });
 }));
 whiteListController.get('/', (_, res) => __awaiter(void 0, void 0, void 0, function* () {

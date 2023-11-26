@@ -1,5 +1,6 @@
 namespace NodeJS {
 	interface ProcessEnv {
+		PORT: string
 		DB_USER: string
 		DB_PASSWORD: string
 		DB_HOST: string
@@ -11,7 +12,7 @@ namespace NodeJS {
 
 export interface User {
 	id: number
-	nombre: string
+	name: string
 	email: string
 	createDate: Date
 }
