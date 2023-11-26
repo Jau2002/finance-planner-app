@@ -1,0 +1,51 @@
+{
+	"private": true,
+	"name": "backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.ts",
+	"scripts": {
+		"format": "prettier -w \"**/*.ts\" --ignore-path \".gitignore\"",
+		"lint": "eslint --fix \"**/*.ts\" --color",
+		"tsc": "rimraf build & tsc -p \"tsconfig.json\"",
+		"start": "node \"./build/index.js\"",
+		"serve": "tsnd --respawn --cls --quiet --rs \"./src/index.ts\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Jau2002/.git"
+	},
+	"author": "Jau2002 <idamendjaume@gmail.com> (https://www.linkedin.com/in/jaumesuarez)",
+	"keywords": [],
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Jau2002//issues"
+	},
+	"prisma": {
+		"schema": "prisma/schema.prisma"
+	},
+	"prettier": {
+		"useTabs": true,
+		"semi": false,
+		"singleQuote": true,
+		"quoteProps": "preserve"
+	},
+	"homepage": "https://github.com/Jau2002/#readme",
+	"devDependencies": {
+		"@types/cors": "2.8.17",
+		"@types/dotenv": "8.2.0",
+		"@types/express": "4.17.21",
+		"@types/node": "20.10.0",
+		"prisma": "5.6.0",
+		"rimraf": "5.0.5",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "5.3.2"
+	},
+	"dependencies": {
+		"@prisma/client": "5.6.0",
+		"cors": "2.8.5",
+		"dotenv": "16.3.1",
+		"express": "4.18.2",
+		"morgan-body": "2.6.9"
+	}
+}
