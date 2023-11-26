@@ -7,7 +7,7 @@
 	"scripts": {
 		"format": "prettier -w \"**/*.ts\" --ignore-path \".gitignore\"",
 		"lint": "eslint --fix \"**/*.ts\" --color",
-		"tsc": "tsc -p \"tsconfig.json\"",
+		"tsc": "rimraf build & tsc -p \"tsconfig.json\"",
 		"start": "node \"./build/index.js\"",
 		"serve": "tsnd --respawn --cls --quiet --rs \"./src/index.ts\""
 	},
