@@ -38,7 +38,7 @@ app.use('/', routerRoot)
 
 app.use(
 	'*',
-	(_: Request, res: Response): Response =>
+	(err: Error, req: Request, res: Response): Response =>
 		BadRequest(res, 'Not exist this route')
 )
 

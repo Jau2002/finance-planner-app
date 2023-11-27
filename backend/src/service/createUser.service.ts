@@ -1,19 +1,14 @@
 import { User } from '@prisma/client'
 import prisma from '../middlewares/client'
 
-interface UserType {
-	name: string
-	email: string
-}
-
-export async function postUser({ name, email }: UserType): Promise<User> {
-	const createProduct: User = await prisma.user.create({
+export async function postUser(name: string, email: string): Promise<User> {
+	const createUser: User = await prisma.user.create({
 		data: {
-			name,
-			email,
+			email: email,
+			name: name,
 		},
 	})
-	return createProduct
+	return createUser
 }
 
 export async function getUsers(): Promise<User[]> {
