@@ -1,0 +1,26 @@
+{
+	"private": true,
+	"name": "finance-planner-app",
+	"version": "1.0.0",
+	"description": "",
+	"workspaces": [
+		"backend"
+	],
+	"directories": {
+		"doc": "docs"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Jau2002/finance-planner-app.git"
+	},
+	"keywords": [],
+	"author": "Jau2002 <idamendjaume@gmail.com> (https://www.linkedin.com/in/jaumesuarez)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Jau2002/finance-planner-app/issues"
+	},
+	"homepage": "https://github.com/Jau2002/finance-planner-app#readme"
+}

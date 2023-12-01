@@ -1,0 +1,105 @@
+openapi: 3.0.0
+
+info:
+  title: Finance Planner Api
+  description: |
+    La Finance Planner API ofrece servicios financieros para simplificar la gestión y planificación de tus finanzas. Accede a funciones avanzadas de seguimiento de gastos, análisis detallados y más para tomar el control total de tu salud financiera.
+  version: 1.0.0
+
+externalDocs:
+  description: Landing Page del Cliente
+  url: https://financeplanner.netlify.app
+
+servers:
+  - url: https://finance-planner-api.onrender.com
+    description: Api hace referencia, e.g. Main (production) server
+
+paths:
+  /list:
+    get:
+      summary: Obtiene todos los suscriptores
+      description: |
+        Recupera una lista completa de todos los suscriptores registrados en el sistema. Proporciona información detallada sobre cada usuario, incluyendo sus datos clave.
+      responses:
+        '200':
+          description: Lista de todos los suscriptores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Suscribir un usuario a la whitelist
+      description: |
+        Registra a un nuevo usuario en la whitelist para recibir actualizaciones y contenido exclusivo. Se requiere proporcionar el nombre y el correo electrónico del usuario.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Paco
+                email:
+                  type: string
+                  example: soypaco@gmail.com
+              required:
+                - name
+                - email
+
+      responses:
+        '201':
+          description: Usuario suscrito exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+        '422':
+          description: Error en la solicitud debido a falta de parámetros
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Paco
+        email:
+          type: string
+          example: soypaco@gmail.com
+        createDate:
+          type: string
+          format: date
+          example: 28/11/2023
+      required:
+        - name
+        - email
+
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: this a Error
+        route:
+          type: string
+          example: Requested path / not found
+        stack:
+          type: string
+          example: error for file name example
