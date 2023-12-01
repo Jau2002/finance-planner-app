@@ -1,30 +1,15 @@
-import cors from 'cors'
-import express, {
-	type Application,
-	type NextFunction,
-	type Request,
-	type Response,
-} from 'express'
+import express, { type Application } from 'express'
 import morganBody from 'morgan-body'
-import routerRoot from '../routes/root.routes'
-import BadRequest from '../utils/badRequest'
+import rootRouter from '../routes/root.routes'
+import catchAll from './catchAll'
+import cors from './cors'
+import errorsManager from './errorsManager'
 
 const app: Application = express()
 
 app.use(express.json({ strict: true }))
 
-app.use(cors())
-
-app.use((_: Request, res: Response, next: NextFunction): void => {
-	res.header('Access-Control-Allow-Origin', '*')
-	res.header('Access-Control-Allow-Credentials', 'true')
-	res.header(
-		'Access-Control-Allow-Headers',
-		'Origin, X-Requested-With, Content-Type, Accept'
-	)
-	res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
-	next()
-})
+app.use(cors)
 
 morganBody(app, {
 	theme: 'inverted',
@@ -34,12 +19,10 @@ morganBody(app, {
 	immediateReqLog: false,
 })
 
-app.use('/', routerRoot)
+app.use('/', rootRouter)
 
-app.use(
-	'*',
-	(err: Error, req: Request, res: Response): Response =>
-		BadRequest(res, 'Not exist this route')
-)
+app.use('*', catchAll)
+
+app.use(errorsManager)
 
 export default app
