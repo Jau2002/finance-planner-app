@@ -1,0 +1,13 @@
+{
+	"private": true,
+	"name": "docs",
+	"scripts": {
+		"build": "npm run minify-html & npm run minify-js",
+		"minify-html": "html-minifier --collapse-whitespace --minify-css --minify-js --output build/index.html src/index.html",
+		"minify-js": "terser --compress --mangle --output build/index.min.js src/index.js"
+	},
+	"dependencies": {
+		"html-minifier": "4.0.0",
+		"terser": "5.24.0"
+	}
+}

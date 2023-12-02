@@ -1,0 +1,72 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  format:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version: 'lts/hydrogen'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Perf format
+        run: npm run -w backend format:ci
+
+  lint:
+    needs: [format]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version: 'lts/hydrogen'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint Perse
+        run: npm run -w backend lint:ci
+
+  build:
+    needs: [lint]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version: 'lts/hydrogen'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy with gh-pages
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npm run -w docs build -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
