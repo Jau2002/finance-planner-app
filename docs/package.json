@@ -2,9 +2,10 @@
 	"private": true,
 	"name": "docs",
 	"scripts": {
-		"build": "npm run minify-html & npm run minify-js",
+		"build": "npm run prebuild & npm run minify-html & npm run minify-js",
+		"prebuild": "mkdir -p build && cp src/api.yaml build",
 		"minify-html": "html-minifier --collapse-whitespace --minify-css --minify-js --output build/index.html src/index.html",
-		"minify-js": "terser --compress --mangle --output build/index.min.js src/index.js"
+		"minify-js": "mkdir -p build && cp src/api.yaml build && terser --compress --mangle --output build/index.js src/index.js"
 	},
 	"dependencies": {
 		"html-minifier": "4.0.0",

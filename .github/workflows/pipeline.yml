@@ -64,9 +64,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Building documentation
+        run: npm run -w docs build
+
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npm run -w docs build -u "github-actions-bot <support+actions@github.com>"
+          npm run -w docs /docs/build -u "github-actions-bot <support+actions@github.com>"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
